@@ -1,4 +1,5 @@
 #summary Release Creation Check-List
+#labels Phase-QA
 
 *DRAFT*
 
