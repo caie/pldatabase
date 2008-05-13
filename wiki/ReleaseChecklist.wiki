@@ -1,0 +1,8 @@
+#summary Release Creation Check-List
+
+*DRAFT*
+
+  * Run leaks(1) against unit tests.
+  * Tag release.
+  * Upload source and PGP signature to Google Code.
+  * Point documentation link on home page to the new tag.
