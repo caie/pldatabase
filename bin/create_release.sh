@@ -7,6 +7,12 @@ if [ -z $VERSION ]; then
     exit 1
 fi
 
+SOURCE=$2
+if [ -z $SOURCE ]; then
+    echo "Source path must be set."
+    exit 1
+fi
+
 # be sure the checkout is up to date
 svn up
 if [ $? -gt 0 ]; then
@@ -14,7 +20,6 @@ if [ $? -gt 0 ]; then
     exit 1
 fi
 
-TRUNK="trunk/"
 TAG="tags/pldatabase-$VERSION"
 
 # verify the tag is new
@@ -24,7 +29,7 @@ if [ -d $TAG ]; then
 fi
 
 # create the tag
-svn cp $TRUNK $TAG 
+svn cp $SOURCE $TAG 
 if [ $? -gt 0 ]; then
     echo "Creating the tag failed, aborting tagging process."
     exit 1
