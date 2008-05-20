@@ -29,9 +29,6 @@
 
 #import "PlausibleDatabase.h"
 
-/** Generic Database Exception */
-NSString *PLDatabaseException = @"com.plausiblelabs.pldatabase.exception.generic";
-
 /** PlausibleDatabase NSError Domain */
 NSString *PLDatabaseErrorDomain = @"com.plausiblelabs.pldatabase";
 
