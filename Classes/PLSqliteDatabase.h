@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008 Plausible Labs.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,18 +49,9 @@ extern NSString *PLSqliteException;
 
 - (int64_t) lastInsertRowId;
 
-@end
-
 #ifdef PL_DB_PRIVATE
-
-@interface PLSqliteDatabase (PLSqliteDatabaseLibraryPrivate)
-
 - (int) lastErrorCode;
 - (NSString *) lastErrorMessage;
-
-- (void) populateError: (NSError **) result withErrorCode: (PLDatabaseError) errorCode
-           description: (NSString *) localizedDescription queryString: (NSString *) queryString;
+#endif
 
 @end
-
-#endif

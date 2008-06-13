@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008 Plausible Labs.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,10 +33,6 @@
  * @internal
  *
  * SQLite #PLResultSet implementation.
- *
- * @par Thread Safety
- * PLSqliteResultSet instances implement no locking and must not be shared between threads
- * without external synchronization.
  */
  @implementation PLSqliteResultSet
 
@@ -44,21 +40,16 @@
  * Initialize the ResultSet with an open database and an sqlite3 prepare statement.
  *
  * MEMORY OWNERSHIP WARNING:
- * We are passed an sqlite3_stmt reference owned by the PLSqlitePreparedStatement.
- * It will remain valid insofar as the PLSqlitePreparedStatement reference is retained.
- *
- * @par Designated Initializer
- * This method is the designated initializer for the PLSqliteResultSet class.
+ * We are passed an sqlite3_stmt reference which now we now assume authority for releasing
+ * that statement using sqlite3_finalize().
  */
-- (id) initWithPreparedStatement: (PLSqlitePreparedStatement *) stmt 
-                  sqliteStatemet: (sqlite3_stmt *) sqlite_stmt
-{
+- (id) initWithDatabase: (PLSqliteDatabase *) db sqliteStmt: (sqlite3_stmt *) sqlite_stmt {
     if ((self = [super init]) == nil) {
         return nil;
     }
     
-    /* Save our database and statement references. */
-    _stmt = [stmt retain];
+    /* Save our database and statement reference. */
+    _db = [db retain];
     _sqlite_stmt = sqlite_stmt;
 
     /* Save result information */
@@ -75,24 +66,16 @@
     return self;
 }
 
-/* GC */
-- (void) finalize {
-    /* 'Check in' our prepared statement reference */
-    [self close];
-
-    [super finalize];
-}
-
-/* Manual */
 - (void) dealloc {
-    /* 'Check in' our prepared statement reference */
+    /* The statement must be released before the databse is released, as the statement has a reference
+     * to the database which would cause a SQLITE_BUSY error when the database is released. */
     [self close];
 
     /* Release the column cache. */
     [_columnNames release];
-    
-    /* Release the statement. */
-    [_stmt release];
+
+    /* Now release the database. */
+    [_db release];
     
     [super dealloc];
 }
@@ -102,9 +85,10 @@
     if (_sqlite_stmt == nil)
         return;
 
-    /* Check ourselves back in and give up our statement reference */
-    [_stmt checkinResultSet: self];
-    _sqlite_stmt = nil;
+    /* The finalization may return the last error returned by sqlite3_next(), but this has already
+     * been handled by the -[PLSqliteResultSet next] implementation. Any remaining memory and
+     * resources are released regardless of the error code, so we do not check it here. */
+    sqlite3_finalize(_sqlite_stmt);
 }
 
 /**
@@ -116,7 +100,7 @@
         [NSException raise: PLSqliteException format: @"Attempt to access already-closed result set."];
 }
 
-/* From PLResultSet */
+// From PLResultSet
 - (BOOL) next {
     [self assertNotClosed];
 
@@ -132,7 +116,7 @@
         return YES;
     
     /* An error occurred. Log it and throw an exceptions. */
-    NSString *error = [NSString stringWithFormat: @"Error occurred calling next on a PLSqliteResultSet. SQLite error #%d", ret];
+    NSString *error = [NSString stringWithFormat: @"Error occurred calling next on a PLSqliteResultSet. Error: %@", [_db lastErrorMessage]];
     NSLog(@"%@", error);
 
     [NSException raise: PLSqliteException format: @"%@", error];
@@ -229,43 +213,6 @@ VALUE_ACCESSORS(double, double, SQLITE_FLOAT, sqlite3_column_double(_sqlite_stmt
 /* data */
 VALUE_ACCESSORS(NSData *, data, SQLITE_BLOB, [NSData dataWithBytes: sqlite3_column_blob(_sqlite_stmt, columnIndex)
                                                             length: sqlite3_column_bytes(_sqlite_stmt, columnIndex)])
-
-
-/* From PLResultSet */
-- (id) objectForColumnIndex: (int) columnIndex {
-    [self assertNotClosed];
-
-    int columnType = [self validateColumnIndex: columnIndex isNullable: YES];
-    switch (columnType) {
-        case SQLITE_TEXT:
-            return [self stringForColumnIndex: columnIndex];
-
-        case SQLITE_INTEGER:
-            return [NSNumber numberWithLong: [self bigIntForColumnIndex: columnIndex]];
-
-        case SQLITE_FLOAT:
-            return [NSNumber numberWithDouble: [self doubleForColumnIndex: columnIndex]];
-
-        case SQLITE_BLOB:
-            return [self dataForColumnIndex: columnIndex];
-
-        case SQLITE_NULL:
-            return [NSNull null];
-
-        default:
-            [NSException raise: PLDatabaseException format: @"Unhandled SQLite column type %d", columnType];
-    }
-
-    /* Unreachable */
-    abort();
-}
-
-
-/* From PLResultSet */
-- (id) objectForColumn: (NSString *) columnName {
-    return [self objectForColumnIndex: [self columnIndexForName: columnName]];
-}
-
 
 /* from PLResultSet */
 - (BOOL) isNullForColumnIndex: (int) columnIndex {

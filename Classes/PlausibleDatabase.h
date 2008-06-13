@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008 Plausible Labs.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,31 +31,12 @@
 /* Dependencies */
 #import <Foundation/Foundation.h>
 
-/**
- * @defgroup functions Plausible Database Functions Reference
- */
+/* Library Includes */
+#import "PLResultSet.h"
+#import "PLDatabase.h"
 
-/**
- * @defgroup constants Plausible Database Constants Reference
- */
-
-/**
- * @defgroup enums Enumerations
- * @ingroup constants
- */
-
-/**
- * @defgroup globals Global Variables
- * @ingroup constants
- */
-
-/**
- * @defgroup exceptions Exceptions
- * @ingroup constants
- */
-
-/* Exceptions */
-extern NSString *PLDatabaseException;
+#import "PLSqliteDatabase.h"
+#import "PLSqliteResultSet.h"
 
 /* Error Domain and Codes */
 extern NSString *PLDatabaseErrorDomain;
@@ -64,14 +45,13 @@ extern NSString *PLDatabaseErrorVendorErrorKey;
 extern NSString *PLDatabaseErrorVendorStringKey;
 
 /**
- * NSError codes in the Plausible Database error domain.
- * @ingroup enums
+ * Database error codes.
  */
 typedef enum {
     /** An unknown error has occured. If this
      * code is received, it is a bug, and should be reported. */
     PLDatabaseErrorUnknown = 0,
-    
+
     /** File not found. */
     PLDatabaseErrorFileNotFound = 1,
     
@@ -81,29 +61,6 @@ typedef enum {
     /** The provided SQL statement was invalid. */
     PLDatabaseErrorInvalidStatement = 3,
 } PLDatabaseError;
-
-
-/* Library Includes */
-#import "PLResultSet.h"
-#import "PLPreparedStatement.h"
-#import "PLDatabase.h"
-
-#import "PLSqliteDatabase.h"
-#import "PLSqlitePreparedStatement.h"
-#import "PLSqliteResultSet.h"
-
-#import "PLEntity.h"
-#import "PLEntityProperty.h"
-#import "PLEntityDescription.h"
-
-#import "PLEntityConnectionDelegate.h"
-#import "PLEntityDialect.h"
-#import "PLEntitySession.h"
-#import "PLEntityManager.h"
-#import "PLSqlBuilder.h"
-
-#import "PLSqliteEntityDialect.h"
-#import "PLSqliteEntityConnectionDelegate.h"
 
 #ifdef PL_DB_PRIVATE
 
@@ -130,29 +87,8 @@ typedef enum {
  * While the code is stable and unit tested, the API has not yet been finalized,
  * and may see incompatible changes prior to the 1.0 release.
  *
- * Plausible Database provides an Objective-C veneer over the underlying SQL database. Objects
+ * Plausible Database provides an Objective-C veneer over the underlying SQL database. Classes
  * are automatically bound to statement parameters, and converted to and from the underlying SQL datatypes.
- *
- * Library classes supporting subclassing are explicitly documented. Due to Objective-C's fragile base classes,
- * binary compatibility with subclasses is NOT guaranteed. You should avoid subclassing library
- * classes -- use class composition instead.
- *
- *
- * @section doc_sections Documentation Sections
- * - @subpage exec_sql
- * - @subpage entity_sql
- * - @subpage error_handling
- *
- *
- * @section services Integration & Development Services
- * Plausible Database is provided free of charge under the BSD license, and may be freely integrated with any application.
- * We can provide assistance with integrating our code in your own iPhone or Mac application, as well as development of additional features --
- * including support for additional databases --  under a license of your choosing (higher rates apply for non BSD-licensed work).
- * Contact Plausible Labs for more information: http://www.plausiblelabs.com
- */
-
-/**
- * @page exec_sql Basic SQL Programming Guide
  *
  * @section create_conn Creating a Connection
  *
@@ -190,44 +126,4 @@ typedef enum {
  * // retain database resources until the instance is deallocated.
  * [results close];
  * </pre>
- */
-
-/**
- * @page entity_sql Entity Manager Programming Guide
- *
- * @section introduction Introduction
- * The Plausible Database Entity Manager provides an <a href="http://en.wikipedia.org/wiki/Object-relational_mapping">Object Relational Mapping</a> for
- * interacting with the underlying database.
- *
- * @section define_entities Defining Entities
- *
- * @section create_manager Creating an Entity Manager
- *
- * @section create_session Creating a Session
- *
- */
-
-
-/**
- * @page error_handling Error Handling Programming Guide
- *
- * Where a method may return an error, Plausible Database provides access to the underlying cause via an optional NSError argument.
- *
- * All returned errors will be a member of one of the below defined domains, however, new domains and error codes may be added at any time.
- * If you do not wish to report on the error cause, many methods support a simple form that requires no NSError argument.
- *
- * @section Error Domains, Codes, and User Info
- *
- * @subsection entity_errors Entity Manager Errors
- *
- * The entity manager has its own domain for errors, #PLEntityErrorDomain error domain. Entity manager error codes are defined in #PLEntityError.
- *
- * @subsection database_errors Database Errors
- *
- * Any errors in the database driver use the #PLDatabaseErrorDomain error domain, and and one of the error codes defined in #PLDatabaseError. Additionally, the
- * following keys will be available in the NSError user info dictionary:
- *
- * - #PLDatabaseErrorQueryStringKey - Query which caused the error (optional).
- * - #PLDatabaseErrorVendorErrorKey - The native database error code.
- * - #PLDatabaseErrorVendorStringKey - The native database error string.
  */

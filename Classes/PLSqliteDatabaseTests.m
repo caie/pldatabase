@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008 Plausible Labs.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,6 @@
     PLSqliteDatabase *db = [[[PLSqliteDatabase alloc] initWithPath:  @":memory:"] autorelease];
     STAssertTrue([db open], @"Could not open the database");
     STAssertTrue([db goodConnection], @"The database did not report a good connection");
-    [db close];
 }
 
 
@@ -71,27 +70,6 @@
     STAssertFalse([db openAndReturnError: &error], @"Database was opened, and it should not have been");
     STAssertNotNil(error, @"Returned error was nil");
     STAssertTrue([PLDatabaseErrorDomain isEqual: [error domain]], @"Incorrect error domain");
-    [db close];
-}
-
-- (void) testGoodConnection {
-    PLSqliteDatabase *db = [[[PLSqliteDatabase alloc] initWithPath:  @":memory:"] autorelease];
-    STAssertTrue([db open], @"Could not open the database");
-    STAssertTrue([db goodConnection], @"The database did not report a good connection");
-    [db close];
-    STAssertFalse([db goodConnection], @"The database reported a good connection");
-}
-
-
-- (void) testPrepareStatement {
-    NSObject<PLPreparedStatement> *stmt;
-
-    /* Create a test table */
-    STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a VARCHAR(10), b VARCHAR(20), c BOOL)"], @"Create table failed");
-    
-    /* Prepare a statement */
-    stmt = [_db prepareStatement: @"INSERT INTO test (a) VALUES (?)" error: nil];
-    STAssertNotNil(stmt, @"Could not prepare statement");
 }
 
 
