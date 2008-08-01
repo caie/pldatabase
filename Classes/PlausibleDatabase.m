@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008 Plausible Labs.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,32 +29,18 @@
 
 #import "PlausibleDatabase.h"
 
-/** 
- * Generic Database Exception
- * @ingroup exceptions
- */
-NSString *PLDatabaseException = @"com.plausiblelabs.pldatabase.exception.generic";
-
-/** Plausible Database NSError Domain
- * @ingroup globals */
+/** PlausibleDatabase NSError Domain */
 NSString *PLDatabaseErrorDomain = @"com.plausiblelabs.pldatabase";
 
-/**
- * Key to retrieve the optionally provided SQL query which caused the error from an NSError in the PLDatabaseErrorDomain, as an NSString
- * @ingroup globals
- */
+/** Key to retrieve the optionally provided SQL query which caused the error. */
 NSString *PLDatabaseErrorQueryStringKey = @"com.plausiblelabs.pldatabase.error.query.string";
 
-/**
-  * Key to retrieve the native database error code from an NSError in the PLDatabaseErrorDomain, as an NSNumber
-  * @ingroup globals
-  */
+/** Key to retrieve the native database error
+  * code from an NSError in the PLDatabaseErrorDomain, as an NSNumber */
 NSString *PLDatabaseErrorVendorErrorKey = @"com.plausiblelabs.pldatabase.error.vendor.code";
 
-/** 
- * Key to retrieve the native database error string from an NSError in the PLDatabaseErrorDomain, as an NSString
- * @ingroup globals
- */
+/** Key to retrieve the native database error
+ * string from an NSError in the PLDatabaseErrorDomain, as an NSString */
 NSString *PLDatabaseErrorVendorStringKey = @"com.plausiblelabs.pldatabase.error.vendor.string";
 
 /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008 Plausible Labs.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,26 +30,6 @@
 
 /**
  * Protocol for interacting with an SQL database.
- *
- * @par Object Types
- * All drivers support conversion to and from the following object types:
- * - NSString
- * - NSNumber
- * - NSData
- *
- * @par Scalar Types
- * All drivers implement conversion to and from the scalar types as defined in
- * the Key Value Coding documentation, Scalar and Structure Support:
- * http://developer.apple.com/documentation/Cocoa/Conceptual/KeyValueCoding/Concepts/DataTypes.html#//apple_ref/doc/uid/20002171-184842-BCIJIBHC
- *
- * @par
- * The mapping of these scalar types to specific database types is implementation
- * defined. Refer to the database driver's documentation for the specific mapping
- * used.
- *
- * @par Thread Safety
- * PLDatabase instances implement no locking and must not be shared between threads
- * without external synchronization.
  */
 @protocol PLDatabase
 
@@ -57,42 +37,6 @@
  * Test that the connection is active.
  */
 - (BOOL) goodConnection;
-
-/**
- * Close the database connection, releasing any held database resources.
- * After calling, no further PLDatabase methods may be called on the instance.
- *
- * As PLDatabase objects may be placed into autorelease pools, with indeterminate
- * release of database resources, this method should be used to ensure that the database
- * connection is closed in a timely manner. 
- *
- * Failure to call close will not result in any resource leaks, but may result in
- * database connections unexpectedly remaining open, especially in a garbage collection
- * environment.
- */
-- (void) close;
-
-
-/**
- * Prepare and return a new PLPreparedStatement.
- *
- * @param statement SQL statement to prepare.
- * @return The prepared statement, or nil if it could not be prepared.
- */
-- (NSObject<PLPreparedStatement> *) prepareStatement: (NSString *) statement;
-
-/**
- * Prepare and return a new PLPreparedStatement.
- *
- * @param statement SQL statement to prepare.
- * @param outError A pointer to an NSError object variable. If an error occurs, this
- * pointer will contain an error object indicating why the statement could not be prepared.
- * If no error occurs, this parameter will be left unmodified. You may specify nil for this
- * parameter, and no error information will be provided.
- * @return The prepared statement, or nil if it could not be prepared.
- */
-- (NSObject<PLPreparedStatement> *) prepareStatement: (NSString *) statement error: (NSError **) outError;
-
 
 /**
  * Execute an update, returning YES on success, NO on failure.
@@ -126,7 +70,6 @@
  * referred to using standard '?' JDBC substitutions
  *
  * @param statement SQL statement to execute.
- * @return PLResultSet on success, or nil on failure.
  */
 - (NSObject<PLResultSet> *) executeQuery: (NSString *) statement, ...;
 
@@ -141,7 +84,6 @@
  * If no error occurs, this parameter will be left unmodified. You may specify nil for this
  * parameter, and no error information will be provided.
  * @param statement SQL statement to execute.
- * @return PLResultSet on success, or nil on failure.
  */
 - (NSObject<PLResultSet> *) executeQueryAndReturnError: (NSError **) error statement: (NSString *) statement, ...;
 
