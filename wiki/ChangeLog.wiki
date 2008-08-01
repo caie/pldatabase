@@ -1,4 +1,8 @@
 #labels Featured
+==== 1.0.1 (8-01-2008) ====
+
+- Backported a fix from trunk for {{{-[PLSqliteResultSet close]}}}. Ensures that close calls sqlite3_finalize() only once (either at release time, or when close is called manually).
+
 ==== 1.1-RC1 (6-13-2008) ====
 
 - Added {{{-[PLResultSet objectForColumn:]}}}, returning column values as a Foundation data-type.
