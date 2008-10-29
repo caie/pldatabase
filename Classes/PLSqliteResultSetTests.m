@@ -55,7 +55,7 @@
     STAssertTrue([_db beginTransaction], @"Could not start a transaction");
     
     /* Create a result, move to the first row, and then close it */
-    id<PLResultSet> result = [_db executeQuery: @"PRAGMA user_version"];
+    NSObject<PLResultSet> *result = [_db executeQuery: @"PRAGMA user_version"];
     [result next];
     [result close];
 
@@ -63,20 +63,8 @@
     STAssertTrue([_db rollbackTransaction], @"Could not roll back, was result actually closed?");
 }
 
-- (void) testNextErrorHandling {
-    NSError *error;
-
-    /* Trigger an error by over iterating the result set. (Is there a better way to trigger this error?) */
-    id<PLResultSet> result = [_db executeQuery: @"PRAGMA user_version"];
-    [result nextAndReturnError: nil];
-    [result nextAndReturnError: nil];
-    [result nextAndReturnError: nil];
-    STAssertEquals(PLResultSetStatusError, [result nextAndReturnError: &error], @"Result set did not return an error");
-}
-
-
 - (void) testColumnIndexForName {
-    id<PLResultSet> result = [_db executeQuery: @"PRAGMA user_version"];
+    NSObject<PLResultSet> *result = [_db executeQuery: @"PRAGMA user_version"];
     STAssertEquals(0, [result columnIndexForName: @"user_version"], @"user_version column not found");
     STAssertEquals(0, [result columnIndexForName: @"USER_VERSION"], @"Column index lookup appears to be case sensitive.");
 
@@ -84,7 +72,7 @@
 }
 
 - (void) testDateForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     NSDate *now = [NSDate date];
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a date)"], @"Create table failed");
@@ -96,7 +84,7 @@
 }
 
 - (void) testStringForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a varchar(30))"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", @"TestString"]), @"Could not insert row");
@@ -107,7 +95,7 @@
 }
 
 - (void) testIntForColumn {
-    id<PLResultSet> result = [_db executeQuery: @"PRAGMA user_version"];
+    NSObject<PLResultSet> *result = [_db executeQuery: @"PRAGMA user_version"];
     STAssertNotNil(result, @"No result returned from query");
     STAssertTrue([result next], @"No rows were returned");
     
@@ -115,7 +103,7 @@
 }
 
 - (void) testBigIntForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a bigint)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", [NSNumber numberWithLongLong: INT64_MAX]]), @"Could not insert row");
@@ -126,7 +114,7 @@
 }
 
 - (void) testBoolForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a bool)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", [NSNumber numberWithBool: YES]]), @"Could not insert row");
@@ -137,7 +125,7 @@
 }
 
 - (void) testFloatForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a float)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", [NSNumber numberWithFloat: 3.14]]), @"Could not insert row");
@@ -148,7 +136,7 @@
 }
 
 - (void) testDoubleForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a double)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", [NSNumber numberWithDouble: 3.14159]]), @"Could not insert row");
@@ -161,7 +149,7 @@
 - (void) testDataForColumn {
     const char bytes[] = "This is some example test data";
     NSData *data = [NSData dataWithBytes: bytes length: sizeof(bytes)];
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a blob)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", data]), @"Could not insert row");
@@ -172,7 +160,7 @@
 }
 
 - (void) testIsNullForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a integer)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", nil]), @"Could not insert row");
@@ -184,7 +172,7 @@
 
 /* Test that dereferencing a null value throws an exception. */
 - (void) testNullValueException {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a integer)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", nil]), @"Could not insert row");
@@ -196,7 +184,7 @@
 }
 
 - (void) testObjectForColumn {
-    id<PLResultSet> result;
+    NSObject<PLResultSet> *result;
     NSNumber *testInteger;
     NSString *testString;
     NSNumber *testDouble;

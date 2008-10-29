@@ -35,7 +35,7 @@
  * @internal
  * Parameter fetching strategy.
  */
-@protocol PLSqliteParameterStrategy <NSObject>
+@protocol PLSqliteParameterStrategy
 
 /**
  * Return the number of available parameters
@@ -247,21 +247,6 @@
     _sqlite_stmt = nil;
 }
 
-/**
- * @internal
- *
- * Populate an NSError (if not nil) and log it, using this prepared statement's query string
- * and database connection. The vendor error code and message will be populated.
- *
- * Should only be called by PLSqliteResultSet.
- *
- * @param error Pointer to NSError instance to populate. If nil, the error message will be logged instead.
- * @param errorCode A PLDatabaseError error code.
- * @param description A localized description of the error message.
- */
-- (void) populateError: (NSError **) error withErrorCode: (PLDatabaseError) errorCode description: (NSString *) localizedDescription {
-    [_database populateError: error withErrorCode: errorCode description: localizedDescription queryString: _queryString];
-}
 
 /* from PLPreparedStatement */
 - (int) parameterCount {
@@ -275,7 +260,7 @@
  * @internal
  * Bind all parameters, fetching their value using the provided selector.
  */
-- (void) bindParametersWithStrategy: (id<PLSqliteParameterStrategy>) strategy {
+- (void) bindParametersWithStrategy: (NSObject<PLSqliteParameterStrategy> *) strategy {
     [self assertNotInUse];
     
     /* Verify that a complete parameter list was provided */
@@ -357,12 +342,12 @@
 
 
 /* from PLPreparedStatement */
-- (id<PLResultSet>) executeQuery {
+- (NSObject<PLResultSet> *) executeQuery {
     return [self executeQueryAndReturnError: nil];
 }
 
 /* from PLPreparedStatement */
-- (id<PLResultSet>) executeQueryAndReturnError: (NSError **) outError {
+- (NSObject<PLResultSet> *) executeQueryAndReturnError: (NSError **) outError {
     /*
      * Check out a new PLSqliteResultSet statement.
      * At this point, is there any way for the query to actually fail? It has already been compiled and verified.
