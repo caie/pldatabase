@@ -1,15 +1,19 @@
 #!/bin/sh
 
+print_usage () {
+    echo "Usage: $0 <version> <source branch>"
+}
+
 # check the arguments
 VERSION=$1
 if [ -z $VERSION ]; then
-    echo "Version must be set."
+    print_usage
     exit 1
 fi
 
 SOURCE=$2
 if [ -z $SOURCE ]; then
-    echo "Source path must be set."
+    print_usage
     exit 1
 fi
 
@@ -35,7 +39,7 @@ if [ $? -gt 0 ]; then
     exit 1
 fi
 
-# perform the build. unit tests need to be run from the base
+# Build the documentation
 pushd .
 cd $TAG
 doxygen
@@ -49,7 +53,7 @@ fi
 # back down to the root
 popd
 
-# add the javadocs to the tag since we need these to be served on google code
+# add the docs to the tag since we need these to be served on google code
 svn add $TAG/docs
 
 # fix up the svn mimetypes for the html [needed by google code]
