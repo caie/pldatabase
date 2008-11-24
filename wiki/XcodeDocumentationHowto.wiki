@@ -1,7 +1,5 @@
 #summary Subscribing to API Documentation in Xcode
 
-== Subscribing to API Documentation in Xcode ==
-
 It is possible to automatically subscribe to the Plausible Database API documentation directly in Xcode. To do so:
 
   # Launch Xcode.
