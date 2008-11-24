@@ -45,9 +45,6 @@ pushd .
 cd "$TAG"
 doxygen
 
-# Build the corresponding Xcode docset
-make -C "${TAG}/docs"
-
 # Validate the build worked
 if [ $? -gt 0 ]; then
     echo "Build failed, aborting tagging process."
