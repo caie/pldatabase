@@ -17,7 +17,7 @@ print_usage () {
 DOCSET_VERSION=$1
 VERSION=$2
 
-if [ -z "$VERSION" ]; then
+if [ -z "$VERSION" ] || [ -z "$DOCSET_VERSION" ]; then
     print_usage
     exit 1
 fi
