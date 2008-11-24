@@ -56,10 +56,10 @@ make -C "${TAG_DIR}/docs"
 
 # Populate the docset meta-data
 /usr/libexec/PlistBuddy -c "Add :DocSetFeedURL string ${DOCSET_PUBLIC_URL}/${DOCSET_ATOM}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
-/usr/libexec/PlistBuddy -c "Set :DocSetFeedName ${DOCSET_BUNDLE_NAME}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist"
+/usr/libexec/PlistBuddy -c "Set :DocSetFeedName \"${DOCSET_BUNDLE_NAME} ${DOCSET_VERSION}\"" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist"
 
 /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string ${VERSION}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
-/usr/libexec/PlistBuddy -c "Set :CFBundleName \"${DOCSET_BUNDLE_NAME} ${DOCSET_VERSION}\"" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
+/usr/libexec/PlistBuddy -c "Set :CFBundleName ${DOCSET_BUNDLE_NAME}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
 
 # Output the .xar package and the atom file.
 "${DOCSET_UTIL}" package -output "${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}" -atom "${DOCSET_DIR}/${DOCSET_ATOM}" \
