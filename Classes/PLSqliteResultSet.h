@@ -29,8 +29,7 @@
 
 #ifdef PL_DB_PRIVATE
 
-@interface PLSqliteResultSet : NSObject <PLResultSet> {
-@private
+@interface PLSqliteResultSet : NSObject <PLResultSet> {    
     /** The prepared statement */
     PLSqlitePreparedStatement *_stmt;
     
@@ -40,8 +39,8 @@
     /** The number of columns in the result. */
     uint32_t _columnCount;
 
-    /** Cache of column name to column index. This value is lazy initialized and may be NULL. */
-    CFDictionaryRef _columnNames;
+    /** Cache of column name to column index */
+    NSDictionary *_columnNames;
 }
 
 - (id) initWithPreparedStatement: (PLSqlitePreparedStatement *) stmt sqliteStatemet: (sqlite3_stmt *)sqlite_stmt;
