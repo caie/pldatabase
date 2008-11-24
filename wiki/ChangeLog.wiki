@@ -1,7 +1,7 @@
 #labels Featured
 ==== 1.1.1 (11-23-2008) ====
 
-- Same-day minor release to fix build issues with newly released Xcode 3.1.2
+- Same-day minor release to fix build issues with newly released Xcode 3.1.2 (Issue #7)
 
 ==== 1.1 (11-23-2008) ====
 
