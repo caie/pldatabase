@@ -1,4 +1,12 @@
 #labels Featured
+==== 1.1 (11-23-2008 ====
+
+- Promoted 1.1-RC2 to final 1.1 release.
+
+==== 1.1-RC2 (10-29-2008) ====
+
+- Fixed issue #6 from trunk: {{{-[PLSqliteDatabase executeUpdate:]}}} methods do not explicitly close the autoreleased statement
+
 ==== 1.0.1 (8-01-2008) ====
 
 - Backported a fix from trunk for {{{-[PLSqliteResultSet close]}}}. Ensures that close calls sqlite3_finalize() only once (either at release time, or when close is called manually).
