@@ -25,7 +25,7 @@ if [ -z "$XCODE_BASE" ]; then
 fi
 
 # Determine the tag path
-TAG="tags/${PROJECT_NAME}-$VERSION"
+TAG="`pwd`/tags/${PROJECT_NAME}-$VERSION"
 
 # Verify the tag is new
 if [ -d "$TAG" ]; then
@@ -44,6 +44,9 @@ fi
 pushd .
 cd "$TAG"
 doxygen
+
+# Build the corresponding Xcode docset
+make -C "${TAG}/docs"
 
 # Validate the build worked
 if [ $? -gt 0 ]; then
