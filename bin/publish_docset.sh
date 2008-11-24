@@ -6,13 +6,16 @@ PROJECT_NAME="pldatabase"
 PUBLIC_SVN_URL="http://pldatabase.googlecode.com/svn/"
 
 DOCSET_ID="com.plausiblelabs.PLDatabase"
+DOCSET_BUNDLE_NAME="Plausible Database"
 
 # Parse script arguments
 print_usage () {
-    echo "Usage: $0 <tag version>"
+    echo "Usage: $0 <docset version> <tag version>"
+    echo "Example: $0 1.1 1.1.5"
 }
 
-VERSION=$1
+DOCSET_VERSION=$1
+VERSION=$2
 
 if [ -z "$VERSION" ]; then
     print_usage
@@ -34,7 +37,7 @@ fi
 
 # Docset paths
 DOCSET_DIR="${ROOT_PATH}/xcode-docset"
-DOCSET_ATOM="${DOCSET_DIR}/feed.atom"
+DOCSET_ATOM="${PROJECT_NAME}-${DOCSET_VERSION}.atom"
 DOCSET_INPUT_FILE="${DOCSET_ID}.docset"
 DOCSET_OUTPUT_FILE="${DOCSET_ID}-${VERSION}.xar"
 DOCSET_PUBLIC_URL="${PUBLIC_SVN_URL}/xcode-docset/"
@@ -51,16 +54,19 @@ fi
 # Build the Xcode docset
 make -C "${TAG_DIR}/docs"
 
-# Populate the feed URL and docset version
-/usr/libexec/PlistBuddy -c "Add :DocSetFeedURL string ${DOCSET_PUBLIC_URL}/${DOCSET_OUTPUT_FILE}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
+# Populate the docset meta-data
+/usr/libexec/PlistBuddy -c "Add :DocSetFeedURL string ${DOCSET_PUBLIC_URL}/${DOCSET_ATOM}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
+/usr/libexec/PlistBuddy -c "Set :DocSetFeedName ${DOCSET_BUNDLE_NAME}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist"
+
 /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string ${VERSION}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
+/usr/libexec/PlistBuddy -c "Set :CFBundleName \"${DOCSET_BUNDLE_NAME} ${DOCSET_VERSION}\"" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist" 
 
 # Output the .xar package and the atom file.
-"${DOCSET_UTIL}" package -output "${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}" -atom "${DOCSET_ATOM}" \
+"${DOCSET_UTIL}" package -output "${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}" -atom "${DOCSET_DIR}/${DOCSET_ATOM}" \
 	-download-url="${DOCSET_PUBLIC_URL}/${DOCSET_OUTPUT_FILE}" "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}"
 rm -rf "${TAG_DIR}/docs/${DOCSET_INPUT_FILE}"
 
-svn add "${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}"
+svn add "${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}" "${DOCSET_DIR}/${DOCSET_ATOM}"
 
 # Validate the build worked
 if [ $? -gt 0 ]; then
