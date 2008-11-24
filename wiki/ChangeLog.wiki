@@ -1,5 +1,9 @@
 #labels Featured
-==== 1.1 (11-23-2008 ====
+==== 1.1.1 (11-23-2008) ====
+
+- Same-day minor release to fix build issues with newly released Xcode 3.1.2
+
+==== 1.1 (11-23-2008) ====
 
 - Promoted 1.1-RC2 to final 1.1 release.
 
