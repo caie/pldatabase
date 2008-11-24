@@ -1,0 +1,16 @@
+
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
+    <id>http://pldatabase.googlecode.com/svn//xcode-docset//com.plausiblelabs.PLDatabase-1.1.xar/20081123205053</id>
+    <title type="text">Plausible Labs</title>
+    <link rel="self" href="http://pldatabase.googlecode.com/svn//xcode-docset//com.plausiblelabs.PLDatabase-1.1.xar"></link>
+    <updated>2008-11-23T20:50:53-08:00</updated>
+    <entry>
+        <id>tag:pldatabase.googlecode.com,2008-11-23:com.plausiblelabs.PLDatabase.docset/1.1.0</id>
+        <title type="text">PlausibleDatabase</title>
+        <updated>2008-11-23T20:50:53-08:00</updated>
+        <content type="text">PlausibleDatabase (v1.1.0)</content>
+        <link rel="enclosure" type="application/octet-stream" href="http://pldatabase.googlecode.com/svn//xcode-docset//com.plausiblelabs.PLDatabase-1.1.xar" length="292106"></link>
+        <docset:identifier>com.plausiblelabs.PLDatabase.docset</docset:identifier>
+        <docset:version>1.1.0</docset:version>
+    </entry>
+</feed>
