@@ -30,7 +30,6 @@
 
 /* Dependencies */
 #import <Foundation/Foundation.h>
-#import <AvailabilityMacros.h>
 
 /**
  * @defgroup functions Plausible Database Functions Reference
@@ -83,6 +82,7 @@ typedef enum {
     PLDatabaseErrorInvalidStatement = 3,
 } PLDatabaseError;
 
+
 /* Library Includes */
 #import "PLResultSet.h"
 #import "PLPreparedStatement.h"
@@ -91,16 +91,6 @@ typedef enum {
 #import "PLSqliteDatabase.h"
 #import "PLSqlitePreparedStatement.h"
 #import "PLSqliteResultSet.h"
-
-#import "PLDatabaseConnectionProvider.h"
-#import "PLSqliteConnectionProvider.h"
-
-#import "PLDatabaseMigrationVersionManager.h"
-#import "PLDatabaseMigrationTransactionManager.h"
-#import "PLDatabaseMigrationManager.h"
-#import "PLDatabaseMigrationDelegate.h"
-
-#import "PLSqliteMigrationVersionManager.h"
 
 #ifdef PL_DB_PRIVATE
 
@@ -177,7 +167,7 @@ typedef enum {
  * conforming to PLResultSet will be returned.
  *
  * <pre>
- * id<PLResultSet> results = [db executeQuery: @"SELECT id FROM example WHERE id = ?", [NSNumber numberWithInteger: 42]];
+ * NSObject<PLResultSet> *results = [db executeQuery: @"SELECT id FROM example WHERE id = ?", [NSNumber numberWithInteger: 42]];
  * while ([results next]) {
  *     NSLog(@"Value of column id is %d", [results intForColumn: @"id"]);
  * }
@@ -194,7 +184,7 @@ typedef enum {
  * be constructed using -[PLDatabase prepareStatement:].
  *
  * <pre>
- * id<PLPreparedStatement> stmt = [db prepareStatement: @"INSERT INTO example (name, color) VALUES (?, ?)"];
+ * NSObject<PLPreparedStatement> *stmt = [db prepareStatement: @"INSERT INTO example (name, color) VALUES (?, ?)"];
  
  * // Bind the parameters
  * [stmt bindParameters: [NSArray arrayWithObjects: @"Widget", @"Blue", nil]];
@@ -211,7 +201,7 @@ typedef enum {
  *
  * <pre>
  * // Prepare the statement
- * id<PLPreparedStatement> stmt = [db prepareStatement: @"INSERT INTO test (name, color) VALUES (:name, :color)"];
+ * NSObject<PLPreparedStatement> *stmt = [db prepareStatement: @"INSERT INTO test (name, color) VALUES (:name, :color)"];
  *
  * // Bind the parameters using a dictionary
  * NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity: 2];

@@ -58,10 +58,8 @@
 
 - (void) testOpen {
     PLSqliteDatabase *db = [[[PLSqliteDatabase alloc] initWithPath:  @":memory:"] autorelease];
-    STAssertTrue([db sqliteHandle] == NULL, @"The returned database handle is not NULL");
     STAssertTrue([db open], @"Could not open the database");
     STAssertTrue([db goodConnection], @"The database did not report a good connection");
-    STAssertTrue([db sqliteHandle] != NULL, @"The returned database handle is NULL");
     [db close];
 }
 
@@ -86,7 +84,7 @@
 
 
 - (void) testPrepareStatement {
-    id<PLPreparedStatement> stmt;
+    NSObject<PLPreparedStatement> *stmt;
 
     /* Create a test table */
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a VARCHAR(10), b VARCHAR(20), c BOOL)"], @"Create table failed");
@@ -112,7 +110,7 @@
 
     STAssertTrue([db executeUpdateAndReturnError: &error statement: @"CREATE TABLE test (a VARCHAR(12), b VARCHAR(20))"], @"Create table failed: %@", error);
     
-	id<PLPreparedStatement> stmt = [db prepareStatement:@"INSERT INTO test (a, b) VALUES(:a, :b)"];
+	NSObject<PLPreparedStatement> *stmt = [db prepareStatement:@"INSERT INTO test (a, b) VALUES(:a, :b)"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	[dict setObject:@"test category" forKey:@"a"];
 	[dict setObject:@"test domain" forKey:@"b"];
@@ -138,7 +136,7 @@
     STAssertTrue([db executeUpdateAndReturnError: &error statement: @"CREATE TABLE test (a VARCHAR(12), b VARCHAR(20))"], @"Create table failed: %@", error);
     STAssertTrue(([db executeUpdateAndReturnError: &error statement: @"INSERT INTO test VALUES (?, ?)", @"foo", @"bar"]), @"Data insert failed %@", error);
     
-    id<PLResultSet> resultSet = [db executeQuery: @"SELECT * FROM test"];
+    NSObject<PLResultSet> *resultSet = [db executeQuery: @"SELECT * FROM test"];
 
 	[resultSet close];
 	[db close];
@@ -147,7 +145,7 @@
 
 
 - (void) testExecuteUpdateQueryParams {
-    id<PLResultSet> rs;
+    NSObject<PLResultSet> *rs;
 
     STAssertTrue([_db executeUpdate: @"CREATE TABLE test (a int)"], @"Create table failed");
     STAssertTrue(([_db executeUpdate: @"INSERT INTO test (a) VALUES (?)", [NSNumber numberWithInt: 42]]), @"Could not insert row");
@@ -158,14 +156,14 @@
 
 
 - (void) testExecuteQueryNoParameters {
-    id<PLResultSet> result = [_db executeQuery: @"PRAGMA user_version"];
+    NSObject<PLResultSet> *result = [_db executeQuery: @"PRAGMA user_version"];
     STAssertNotNil(result, @"No result returned from query");
     STAssertTrue([result next], @"No rows were returned");
 }
 
 /* Test handling of all supported parameter data types */
 - (void) testParameterHandling {
-	id<PLResultSet> rs;
+	NSObject<PLResultSet> *rs;
 	BOOL ret;
     NSDate *now = [NSDate date];
     const char bytes[] = "This is some example test data";
@@ -253,7 +251,7 @@
 }
 
 - (void) testLastInsertRowId {
-    id<PLResultSet> rs;
+    NSObject<PLResultSet> *rs;
     int64_t rowId;
     
     /* Create test table */
