@@ -1,4 +1,4 @@
 The rough direction I'd like to explore for an iPhone-capable ORM (built as an additional library, with PLDatabase):
-  - Support for parsing of Xcode-created CoreData model definitions.
-  - An API that, using the CoreData model definitions, handles wiring of object properties from/to the database values for individual objects.
-  - Relationship support, loading with incremental support for loading subobjects.
+  * Support for parsing of Xcode-created CoreData model definitions.
+  * An API that, using the CoreData model definitions, handles wiring of object properties from/to the database values for individual objects.
+  * Relationship support, loading with incremental support for loading subobjects.
