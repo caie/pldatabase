@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
     <id>http://pldatabase.googlecode.com/svn//xcode-docset//pldatabase-1.2.atom/20090831201057</id>
     <title type="text">Plausible Database 1.2</title>
     <link rel="self" href="http://pldatabase.googlecode.com/svn//xcode-docset//pldatabase-1.2.atom"></link>
     <docset:publisherName>Plausible Labs</docset:publisherName>
     <docset:publisherID>com.plausiblelabs.documentation</docset:publisherID>
-    <updated>2009-08-31T20:10:57-07:00</updated>
+    <updated>2009-08-31T21:44:33-07:00</updated>
     <entry>
         <id>tag:pldatabase.googlecode.com,2009-08-31:com.plausiblelabs.PLDatabase.docset/1.2.0</id>
         <title type="text">Plausible Database</title>
@@ -14,5 +14,14 @@
         <link rel="enclosure" type="application/octet-stream" href="http://pldatabase.googlecode.com/svn//xcode-docset//com.plausiblelabs.PLDatabase-1.2.xar" length="508323"></link>
         <docset:identifier>com.plausiblelabs.PLDatabase.docset</docset:identifier>
         <docset:version>1.2.0</docset:version>
+    </entry>
+    <entry>
+        <id>tag:pldatabase.googlecode.com,2009-08-31:com.plausiblelabs.PLDatabase.docset/1.2.1</id>
+        <title type="text">Plausible Database</title>
+        <updated>2009-08-31T21:44:33-07:00</updated>
+        <content type="text">Plausible Database (v1.2.1)</content>
+        <link rel="enclosure" type="application/octet-stream" href="http://pldatabase.googlecode.com/svn//xcode-docset//com.plausiblelabs.PLDatabase-1.2.1.xar" length="508426"></link>
+        <docset:identifier>com.plausiblelabs.PLDatabase.docset</docset:identifier>
+        <docset:version>1.2.1</docset:version>
     </entry>
 </feed>
