@@ -92,64 +92,66 @@ typedef enum {
 - (void) close;
 
 /**
- * Map the given column name to a column index. Will throw NSException if the column name is unknown.
+ * Map the given column name to a column index. Will throw NSException if the column name
+ * is unknown.
  *
  * @param name Name of the column.
- * @return Returns the index of the column name, or throws an NSException if the column can not be found.
+ * @return Returns the index of the column name, or throws an NSException if the column
+ * can not be found.
  */
 - (int) columnIndexForName: (NSString *) name;
 
 /**
- * Return the integer value of the given column index from the current result row.
+ * Return the integer value of the given column index from
+ * the current result row.
  *
- * If the column value is NULL, 0 will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (int32_t) intForColumnIndex: (int) columnIdx;
 
 /**
- * Return the integer value of the named column from the current result row.
+ * Return the integer value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, 0 will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (int32_t) intForColumn: (NSString *) columnName;
 
 /**
- * Return the string value of the given column index from the current result row.
+ * Return the string value of the given column index from
+ * the current result row.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (NSString *) stringForColumnIndex: (int) columnIndex;
 
 /**
- * Return the string value of the named column from the current result row.
+ * Return the string value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (NSString *) stringForColumn: (NSString *) columnName;
 
 /**
- * Returns the 64 bit big integer (long) value of the given column index the current result row.
+ * Returns the 64 bit big integer (long) value of the given
+ * column index the current result row.
  *
- * If the column value is NULL, 0 will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (int64_t) bigIntForColumnIndex: (int) columnIndex;
 
 /**
- * Returns the 64 bit big integer (long) value of the named column from the current result row.
+ * Returns the 64 bit big integer (long) value of the named
+ * column from the current result row.
  *
- * If the column value is NULL, 0 will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (int64_t) bigIntForColumn: (NSString *) columnName;
 
@@ -170,36 +172,35 @@ typedef enum {
 - (BOOL) isNullForColumn: (NSString *) columnName;
 
 /**
- * Returns the BOOL value of the named column from the current result row.
+ * Returns the BOOL value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, NO will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (BOOL) boolForColumn: (NSString *) columnName;
 
 /**
- * Returns the BOOL value of the given column index from the  current result row.
+ * Returns the BOOL value of the given column index from the 
+ * current result row.
  *
- * If the column value is NULL, NO will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (BOOL) boolForColumnIndex: (int) columnIndex;
 
 /**
- * Returns the float value of the named column from the current result row.
+ * Returns the float value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, 0.0 will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (float) floatForColumn: (NSString *) columnName;
 
 /**
- * Returns the float value of the given column index from the  current result row.
- *
- * If the column value is NULL, 0.0 will be returned.
+ * Returns the float value of the given column index from the 
+ * current result row.
  *
  * Will throw NSException if the column index is out of range,
  * or if the column value is NULL.
@@ -207,86 +208,80 @@ typedef enum {
 - (float) floatForColumnIndex: (int) columnIndex;
 
 /**
- * Returns the double value of the named column from the current result row.
+ * Returns the double value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, 0.0 will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (double) doubleForColumn: (NSString *) columnName;
 
 /**
- * Returns the double value of the given column index from the current result row.
+ * Returns the double value of the given column index from the 
+ * current result row.
  *
- * If the column value is NULL, 0.0 will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (double) doubleForColumnIndex: (int) columnIndex;
 
 /**
- * Returns the NSDate value of the named column from the current result row.
+ * Returns the NSDate value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (NSDate *) dateForColumn: (NSString *) columnName;
 
 /**
- * Returns the NSDate value of the given column index from the current result row.
+ * Returns the NSDate value of the given column index from the 
+ * current result row.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (NSDate *) dateForColumnIndex: (int) columnIndex;
 
 /**
- * Returns the NSData value of the named column from the current result row.
+ * Returns the NSData value of the named column from the
+ * current result row.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  */
 - (NSData *) dataForColumn: (NSString *) columnName;
 
 /**
- * Returns the NSData value of the given column index from the  current result row.
+ * Returns the NSData value of the given column index from the 
+ * current result row.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  */
 - (NSData *) dataForColumnIndex: (int) columnIndex;
 
 /**
- * Return the value of the named column as a Foundation Objective-C  object, using the database driver's built-in
- * SQL and Foundation data-type mappings.
+ * Return the value of the named column as a Foundation
+ * Objective-C  object, using the database driver's built-in SQL and
+ * Foundation data-type mappings.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column name is unknown.
+ * Will throw NSException if the column name is unknown,
+ * or if the column value is NULL.
  *
  * @param columnName Name of column value to return.
- *
- * @warning In previous releases, NSNull was returned for NULL column values. This behavior was not documented,
- * and the implementation has been modified to return nil.
  */
 - (id) objectForColumn: (NSString *) columnName;
 
 /**
- * Return the value of the named column as a Foundation Objective-C  object, using the database driver's built-in
- * SQL and Foundation data-type mappings.
+ * Return the value of the named column as a Foundation
+ * Objective-C  object, using the database driver's built-in SQL and
+ * Foundation data-type mappings.
  *
- * If the column value is NULL, nil will be returned.
- *
- * Will throw NSException if the column index is out of range.
+ * Will throw NSException if the column index is out of range,
+ * or if the column value is NULL.
  *
  * @param columnIndex Index of column value to return.
- *
- * @warning In previous releases, NSNull was returned for NULL column values. This behavior was not documented,
- * and the implementation has been modified to return nil.
  */
 - (id) objectForColumnIndex: (int) columnIndex;
 @end

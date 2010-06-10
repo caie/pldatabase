@@ -201,6 +201,20 @@
 			remoteGlobalIDString = 054CBFDB0EE242BC0043675E;
 			remoteInfo = "PlausibleDatabase-Windows-i386";
 		};
+		05782EF00EE3B0C80039276A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 058ABB630DE6361300C995C9;
+			remoteInfo = "PlausibleDatabase-MacOSX";
+		};
+		05782F4C0EE3B8150039276A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 058ABB630DE6361300C995C9;
+			remoteInfo = "PlausibleDatabase-MacOSX";
+		};
 		058ABC430DE638DE00C995C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -607,6 +621,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				05782EF10EE3B0C80039276A /* PBXTargetDependency */,
 			);
 			name = "PlausibleDatabase-iPhoneOS";
 			productName = "PlausibleDatabase-iPhoneOS";
@@ -624,6 +639,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				05782F4D0EE3B8150039276A /* PBXTargetDependency */,
 			);
 			name = "PlausibleDatabase-iPhoneSimulator";
 			productName = "PlausibleDatabase-iPhoneSimulator";
@@ -997,6 +1013,16 @@
 			target = 054CBFDB0EE242BC0043675E /* PlausibleDatabase-Windows-i386 */;
 			targetProxy = 05782A1A0EE260560039276A /* PBXContainerItemProxy */;
 		};
+		05782EF10EE3B0C80039276A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 058ABB630DE6361300C995C9 /* PlausibleDatabase-MacOSX */;
+			targetProxy = 05782EF00EE3B0C80039276A /* PBXContainerItemProxy */;
+		};
+		05782F4D0EE3B8150039276A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 058ABB630DE6361300C995C9 /* PlausibleDatabase-MacOSX */;
+			targetProxy = 05782F4C0EE3B8150039276A /* PBXContainerItemProxy */;
+		};
 		058ABC440DE638DE00C995C9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 058ABB630DE6361300C995C9 /* PlausibleDatabase-MacOSX */;
@@ -1016,7 +1042,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "PlausibleDatabase$(EFFECTIVE_PLATFORM_NAME)";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.2;
 			};
 			name = Debug;
 		};
@@ -1024,14 +1050,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "PlausibleDatabase$(EFFECTIVE_PLATFORM_NAME)";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.2;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1045,7 +1071,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "PlausibleDatabase$(EFFECTIVE_PLATFORM_NAME)";
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphonesimulator3.2;
 			};
 			name = Debug;
 		};
@@ -1058,7 +1084,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "PlausibleDatabase$(EFFECTIVE_PLATFORM_NAME)";
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphonesimulator3.2;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1391,7 +1417,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = 4.0;
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DPL_DB_PRIVATE=1";
@@ -1410,7 +1436,7 @@
 				CURRENT_PROJECT_VERSION = 1.2.1;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = 4.0;
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DPL_DB_PRIVATE=1";

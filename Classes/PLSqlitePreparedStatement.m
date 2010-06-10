@@ -432,7 +432,7 @@
  * and releasing any exclusive ownership on the prepared statement.
  */
 - (void) checkinResultSet: (PLSqliteResultSet *) resultSet {
-    assert(_inUse == YES); // That would be strange.
+    assert(_inUse = YES); // That would be strange.
 
     _inUse = NO;
     sqlite3_reset(_sqlite_stmt);
@@ -535,7 +535,7 @@
         }
         
         /* If the value can fit into a 32-bit value, use that bind type. */
-        else if (number <= INT32_MAX && number >= INT32_MIN) {
+        else if (number <= INT32_MAX) {
             return sqlite3_bind_int(_sqlite_stmt, parameterIndex, number);
             
             /* Otherwise use the 64-bit bind. */
